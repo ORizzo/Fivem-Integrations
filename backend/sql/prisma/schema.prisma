@@ -1,0 +1,178 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model phone_app_chat {
+  id      Int      @id @default(autoincrement())
+  channel String   @db.VarChar(20)
+  message String   @db.VarChar(255)
+  time    DateTime @default(now()) @db.Timestamp(0)
+}
+
+model phone_calls {
+  id       Int      @id @default(autoincrement())
+  owner    String   @db.VarChar(10)
+  num      String   @db.VarChar(10)
+  incoming Int
+  time     DateTime @default(now()) @db.Timestamp(0)
+  accepts  Int
+}
+
+model phone_messages {
+  id          Int      @id @default(autoincrement())
+  transmitter String   @db.VarChar(10)
+  receiver    String   @db.VarChar(10)
+  message     String   @default("0") @db.VarChar(255)
+  time        DateTime @default(now()) @db.Timestamp(0)
+  isRead      Int      @default(0)
+  owner       Int      @default(0)
+}
+
+model phone_users_contacts {
+  id         Int     @id @default(autoincrement())
+  identifier String? @db.VarChar(60)
+  number     String? @db.VarChar(10)
+  display    String  @default("-1") @db.VarChar(64)
+}
+
+model twitter_accounts {
+  id             Int              @id @default(autoincrement())
+  username       String           @unique(map: "username") @default("0") @db.VarChar(50)
+  password       String           @default("0") @db.VarChar(50)
+  avatar_url     String?          @db.VarChar(255)
+  twitter_likes  twitter_likes[]
+  twitter_tweets twitter_tweets[]
+}
+
+model twitter_likes {
+  id               Int               @id @default(autoincrement())
+  authorId         Int?
+  tweetId          Int?
+  twitter_accounts twitter_accounts? @relation(fields: [authorId], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "FK_twitter_likes_twitter_accounts")
+  twitter_tweets   twitter_tweets?   @relation(fields: [tweetId], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "FK_twitter_likes_twitter_tweets")
+
+  @@index([authorId], map: "FK_twitter_likes_twitter_accounts")
+  @@index([tweetId], map: "FK_twitter_likes_twitter_tweets")
+}
+
+model twitter_tweets {
+  id               Int              @id @default(autoincrement())
+  authorId         Int
+  realUser         String?          @db.VarChar(50)
+  message          String           @db.VarChar(256)
+  time             DateTime         @default(now()) @db.Timestamp(0)
+  likes            Int              @default(0)
+  twitter_accounts twitter_accounts @relation(fields: [authorId], references: [id], onUpdate: Restrict, map: "FK_twitter_tweets_twitter_accounts")
+  twitter_likes    twitter_likes[]
+
+  @@index([authorId], map: "FK_twitter_tweets_twitter_accounts")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model vrp_estoque {
+  vehicle    String @db.VarChar(100)
+  quantidade Int
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model vrp_homes_permissions {
+  owner   Int
+  user_id Int
+  garage  Int
+  home    String @default("") @db.VarChar(100)
+  tax     String @default("") @db.VarChar(24)
+
+  @@ignore
+}
+
+model vrp_srv_data {
+  dkey   String  @id @db.VarChar(100)
+  dvalue String? @db.Text
+}
+
+model vrp_user_data {
+  user_id   Int
+  dkey      String    @db.VarChar(100)
+  dvalue    String?   @db.Text
+  vrp_users vrp_users @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_user_data_users")
+
+  @@id([user_id, dkey])
+}
+
+model vrp_user_identities {
+  user_id       Int       @id
+  registration  String?   @db.VarChar(20)
+  phone         String?   @db.VarChar(20)
+  firstname     String?   @db.VarChar(50)
+  name          String?   @db.VarChar(50)
+  age           Int?
+  driverlicense Int       @default(0)
+  fugitive      Int       @default(0)
+  crimerecord   Int       @default(0)
+  gunlicense    Int       @default(0)
+  foto          String?   @db.VarChar(200)
+  vrp_users     vrp_users @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_user_identities_users")
+
+  @@index([phone], map: "phone")
+  @@index([registration], map: "registration")
+}
+
+model vrp_user_ids {
+  identifier String     @id @db.VarChar(100)
+  user_id    Int?
+  vrp_users  vrp_users? @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_user_ids_users")
+
+  @@index([user_id], map: "fk_user_ids_users")
+}
+
+model vrp_user_moneys {
+  user_id   Int       @id
+  bank      Int?
+  vrp_users vrp_users @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_user_moneys_users")
+}
+
+model vrp_user_vehicles {
+  user_id   Int
+  vehicle   String    @db.VarChar(100)
+  detido    Int       @default(0)
+  time      String    @default("0") @db.VarChar(24)
+  engine    Int       @default(1000)
+  body      Int       @default(1000)
+  fuel      Int       @default(100)
+  ipva      String?   @db.VarChar(50)
+  vrp_users vrp_users @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_user_vehicles_users")
+
+  @@id([user_id, vehicle])
+}
+
+model vrp_users {
+  id                  Int                  @id @default(autoincrement())
+  whitelisted         Boolean?
+  banned              Boolean?
+  playtime            Int                  @default(0)
+  ip                  String               @default("0.0.0") @db.VarChar(255)
+  last_login          String               @default("0.0.0") @db.VarChar(255)
+  coins               Int                  @default(0)
+  vrp_user_data       vrp_user_data[]
+  vrp_user_identities vrp_user_identities?
+  vrp_user_ids        vrp_user_ids[]
+  vrp_user_moneys     vrp_user_moneys?
+  vrp_user_vehicles   vrp_user_vehicles[]
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model web_login {
+  id        Int
+  login     String @db.VarChar(30)
+  senha     String @db.VarChar(30)
+  permissao Int    @default(0)
+
+  @@ignore
+}

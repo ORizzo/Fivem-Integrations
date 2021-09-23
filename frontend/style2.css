@@ -1,0 +1,13 @@
+.Margin {
+    margin: 10%;
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+.Window {
+    color: aliceblue;
+}
+.Background {
+  background: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+}

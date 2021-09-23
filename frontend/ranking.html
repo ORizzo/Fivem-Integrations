@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script
+      src="https://kit.fontawesome.com/5968545497.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="./style2.css" />
+    <link rel="stylesheet" href="tailwind.css" />
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <title>PAINEL DE ADMINISTRAÇÃO</title>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body id="container">
+    <div class="bg-gray-500 Window rounded-xl Margin">
+        <div class="Background">
+          <div
+            class="my-5 py-5 rounded-xl bg-purple-900 grid grid-cols-3 gap-4"
+            id="general">
+            <div
+              class="
+                bg-gray-800
+                shadow-2xl
+                bg-gradient-to-b
+                from-gray-900
+                to-purple-800
+                text-center
+                mx-16
+                my-4
+                rounded-xl
+              "
+              id="div2">
+              <div
+                class="
+                  p-8
+                  bg-gray-900
+                  rounded-xl
+                  text-center
+                  shadow-2xl
+                  text-2xl
+                  cursor-pointer
+                  transition
+                  duration-500
+                  ease-in-out
+                  hover:bg-purple-800
+                  grid place-items-center
+                ">
+                <i class="fas fa-trophy fa-3x m-auto"></i>
+              </div>
+              <div class="my-32 text-2xl" id="profile">
+                <h2>2 LUGAR</h2>
+                <h2 class="uppercase">{GetDB()[1].nome}</h2>
+              </div>
+            </div>
+            <div
+              class="
+                bg-gray-800
+                shadow-2xl
+                bg-gradient-to-b
+                from-gray-900
+                to-purple-800
+                text-center
+                mx-8
+                my-4
+                rounded-xl
+              "
+              id="div2">
+              <div
+                class="
+                  p-8
+                  bg-gray-900
+                  rounded-xl
+                  text-center
+                  shadow-2xl
+                  text-2xl
+                  cursor-pointer
+                  transition
+                  duration-500
+                  ease-in-out
+                  hover:bg-purple-800
+                  grid place-items-center
+                ">
+                <i class="fas fa-crown fa-3x animate-pulse m-auto"></i>
+              </div>
+              <div class="my-32 text-2xl" id="profile">
+                <h2>1 LUGAR</h2>
+                <h2 class="uppercase">{GetDB()[0].nome}</h2>
+              </div>
+              <a href="./cards.html"><i class="fas fa-arrow-circle-left fa-3x animate-pulse m-auto py-4"></i></a>
+            </div>
+            <div
+              class="
+                bg-gray-800
+                shadow-xl
+                bg-gradient-to-b
+                from-gray-900
+                to-purple-800
+                text-center
+                mx-16
+                my-4
+                rounded-xl
+              ">
+              <div
+                class="
+                  p-8
+                  bg-gray-900
+                  rounded-xl
+                  text-center
+                  shadow-2xl
+                  text-2xl
+                  cursor-pointer
+                  transition
+                  duration-500
+                  ease-in-out
+                  hover:bg-purple-800
+                  grid place-items-center
+                ">
+                <i
+                    class="
+                      fas
+                      fa-trophy 
+                      fa-3x
+                      m-auto
+                    "
+                  ></i
+                >
+              </div>
+              <div class="my-32 text-2xl">
+                <h2>3 LUGAR</h2>
+                <h2 class="uppercase">{GetDB()[2].nome}</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </body>
+</html>
+
+
+
