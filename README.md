@@ -15,3 +15,7 @@
 - Tailwind, importante para facilitar a manipulação do css.
 - Axios, usado para ajudar nas requisições e para tratamento de erros e da requisição em si.
 - E chamadas a API que serve os dados do banco de dados, que nós consumimos e servimos no backend.
+
+
+### REQUISITOS
+- Configurar o tailwind.css
